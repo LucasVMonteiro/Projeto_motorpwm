@@ -15,10 +15,7 @@
 
 #define LEDC_TIMER              LEDC_TIMER_0
 #define LEDC_MODE               LEDC_LOW_SPEED_MODE
-#define LEDC_OUTPUT_IO0          (4) // Define the output GPIO
-#define LEDC_OUTPUT_IO1          (16) // Define the output GPIO
-#define LEDC_OUTPUT_IO2          (17) // Define the output GPIO
-#define LEDC_OUTPUT_IO3          (5) // Define the output GPIO
+#define LEDC_OUTPUT_IO          (4) // Define the output GPIO
 #define LEDC_CHANNEL            LEDC_CHANNEL_0
 #define LEDC_DUTY_RES           LEDC_TIMER_13_BIT // Set duty resolution to 13 bits
 #define LEDC_DUTY               (4096) // Set duty to 50%. (2 ** 13) * 50% = 4096
@@ -56,42 +53,12 @@ ledc_timer_config_t ledc_timer = {
     .deconfigure      = false
 };
 // Prepare and then apply the LEDC PWM channel configuration
-ledc_channel_config_t ledc_channel0 = {
+ledc_channel_config_t ledc_channel = {
     .speed_mode     = LEDC_MODE,
     .channel        = LEDC_CHANNEL,
     .timer_sel      = LEDC_TIMER,
     .intr_type      = LEDC_INTR_DISABLE,
-    .gpio_num       = LEDC_OUTPUT_IO0,
-    .duty           = LEDC_DUTY, // Set duty to 0%
-    .hpoint         = 0
-};
-
-ledc_channel_config_t ledc_channel1 = {
-    .speed_mode     = LEDC_MODE,
-    .channel        = LEDC_CHANNEL,
-    .timer_sel      = LEDC_TIMER,
-    .intr_type      = LEDC_INTR_DISABLE,
-    .gpio_num       = LEDC_OUTPUT_IO1,
-    .duty           = LEDC_DUTY, // Set duty to 0%
-    .hpoint         = 0
-};
-
-ledc_channel_config_t ledc_channel2 = {
-    .speed_mode     = LEDC_MODE,
-    .channel        = LEDC_CHANNEL,
-    .timer_sel      = LEDC_TIMER,
-    .intr_type      = LEDC_INTR_DISABLE,
-    .gpio_num       = LEDC_OUTPUT_IO2,
-    .duty           = LEDC_DUTY, // Set duty to 0%
-    .hpoint         = 0
-};
-
-ledc_channel_config_t ledc_channel3 = {
-    .speed_mode     = LEDC_MODE,
-    .channel        = LEDC_CHANNEL,
-    .timer_sel      = LEDC_TIMER,
-    .intr_type      = LEDC_INTR_DISABLE,
-    .gpio_num       = LEDC_OUTPUT_IO3,
+    .gpio_num       = LEDC_OUTPUT_IO,
     .duty           = LEDC_DUTY, // Set duty to 0%
     .hpoint         = 0
 };
@@ -115,10 +82,7 @@ static void ligar_pwm(void)
         //           |_____|            |_________|           |
         //----------------------------------------------------|
         ESP_ERROR_CHECK(ledc_timer_config(&ledc_timer));
-        ESP_ERROR_CHECK(ledc_channel_config(&ledc_channel0));//gerando warn
-        ESP_ERROR_CHECK(ledc_channel_config(&ledc_channel1));//gerando warn
-        ESP_ERROR_CHECK(ledc_channel_config(&ledc_channel2));//gerando warn
-        ESP_ERROR_CHECK(ledc_channel_config(&ledc_channel3));//gerando warn
+        ESP_ERROR_CHECK(ledc_channel_config(&ledc_channel));//gerando warn
         printf("ok\n");
 
 
